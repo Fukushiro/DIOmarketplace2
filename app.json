@@ -1,0 +1,12 @@
+{
+  "name": "DIOmarketplace2",
+  "displayName": "DIOmarketplace2",
+  "expo": {
+    "name": "DIOmarketplace2",
+    "slug": "DIOmarketplace2",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
