@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 //icones
 import FeatherIcon from "react-native-vector-icons/Feather";
 
@@ -23,6 +23,7 @@ import {
 	TotalProductContainer,
 	TotalProductText,
 	TotalContainer,
+	TotalProductTextContainer,
 } from "./style";
 //utils
 import formatValue from "../../utils/formatValue";
@@ -33,7 +34,7 @@ export default function Cart() {
 			title: "Assinatura trimestral",
 			image_url:
 				"https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png",
-			quantidade: 1,
+			quantidade: 2,
 			price: 150,
 		},
 		{
@@ -45,6 +46,18 @@ export default function Cart() {
 			price: 150,
 		},
 	]);
+
+	const cartSize = useMemo(() => {
+		return products.length || 0;
+	}, [products]);
+
+	const cartTotal = useMemo(() => {
+		return products.reduce((acc, product) => {
+			const totalPrice = acc + product.price * product.quantidade;
+			return totalPrice;
+		}, 0);
+	});
+
 	return (
 		<Container>
 			<ProductContainer>
@@ -86,7 +99,15 @@ export default function Cart() {
 				/>
 			</ProductContainer>
 
-			<TotalProductContainer></TotalProductContainer>
+			<TotalProductContainer>
+				<TotalProductTextContainer>
+					<FeatherIcon name="shopping-cart" color="white" size={24} />
+					<TotalProductText>
+						{cartSize} {cartSize > 1 ? "itens" : "item"}
+					</TotalProductText>
+				</TotalProductTextContainer>
+				<SUbTotalValue>{formatValue(cartTotal)}</SUbTotalValue>
+			</TotalProductContainer>
 		</Container>
 	);
 }

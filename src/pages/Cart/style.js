@@ -95,7 +95,13 @@ export const TotalProductContainer = styled.View`
 	justify-content: space-between;
 	padding: 36px 40px;
 	border-radius: 10px;
-	background-color: #e83f5b;
+	/* background-color: #e83f5b; */
+	width: 100%;
+`;
+
+export const TotalProductTextContainer = styled.View`
+	flex-direction: row;
+	justify-content: space-between;
 `;
 
 export const TotalProductText = styled.Text`
@@ -106,7 +112,7 @@ export const TotalProductText = styled.Text`
 `;
 
 export const SUbTotalValue = styled.Text`
-	font-size: 10px;
+	font-size: 15px;
 	color: white;
 	font-weight: bold;
 `;
