@@ -22,7 +22,7 @@ export const Product = styled.View`
 	flex: 1;
 	flex-direction: row;
 	margin: 5px;
-	background-color: white;
+	background-color: #fff;
 	min-width: 350px;
 	min-height: 130px;
 	padding: 15px 10px;
@@ -34,7 +34,7 @@ export const ProductImage = styled.Image`
 	width: 140px;
 `;
 
-export const ProductTitleContainer = styled.Text`
+export const ProductTitleContainer = styled.View`
 	font-size: 16px;
 	margin-left: 5px;
 	margin-top: 10px;
@@ -44,7 +44,7 @@ export const ProductTitle = styled.Text`
 	font-size: 16px;
 `;
 
-export const ProductPriceContainer = styled.Text`
+export const ProductPriceContainer = styled.View`
 	flex-direction: column;
 `;
 
