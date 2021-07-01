@@ -78,6 +78,9 @@ export const ActionContainer = styled.Text`
 	align-items: center;
 	justify-content: space-between;
 	margin-left: auto;
+	flex: 1;
+	/* background-color: red; */
+	flex-direction: column;
 `;
 
 export const ActionButton = styled.TouchableOpacity`
