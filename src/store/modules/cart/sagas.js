@@ -8,9 +8,10 @@ import {
 	addCountRequest,
 } from "./actions";
 
+import { addCart } from "../../ducks/cart";
 function* addToCart({ id }) {
 	const productExists = yield select((state) =>
-		state.cart.find((product) => product.id == id)
+		state.cart.produtos.find((product) => product.id == id)
 	);
 
 	const currentAmount = productExists ? productExists.amount : 0;
@@ -27,7 +28,7 @@ function* addToCart({ id }) {
 			priceFormatted: formatValue(response.data.price),
 		};
 
-		yield put(addToCartSuccess(data));
+		yield put(addCart(data));
 	}
 }
 

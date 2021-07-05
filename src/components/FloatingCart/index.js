@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import formatValue from "../../utils/formatValue";
+import { Creators } from "../../store/ducks/cart";
+import { bindActionCreators } from "redux";
 import {
 	Container,
 	CartPricing,
@@ -10,20 +12,24 @@ import {
 	CartButtonText,
 	CartTotalPrice,
 } from "./style";
-
-export default function FloatingCart() {
+import { connect } from "react-redux";
+const mapDispatchToProps = (dispatch) => bindActionCreators(Creators, dispatch);
+const mapStateToProps = (state) => ({
+	cart: state.cart,
+});
+const FloatingCart = ({ cart }) => {
 	const navigation = useNavigation();
 
-	const products = useSelector(({ cart }) => cart);
+	const products = cart; //useSelector(({ cart }) => cart);
 
 	const cartSize = useMemo(() => {
 		return products.length || 0;
 	}, [products]);
 	const cartTotal = useMemo(() => {
-		return products.reduce((acc, prod) => {
-			const totalPrice = acc + prod.price * prod.amount;
-			return totalPrice;
-		}, 0);
+		return 1; //products.reduce((acc, prod) => {
+		// 	const totalPrice = acc + prod.price * prod.amount;
+		// 	return totalPrice;
+		// }, 0);
 	});
 	return (
 		<Container>
@@ -39,4 +45,6 @@ export default function FloatingCart() {
 			</CartButton>
 		</Container>
 	);
-}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FloatingCart);

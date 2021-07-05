@@ -13,6 +13,13 @@
 			"image_url": "https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png",
 			"quantidade": 1,
 			"price": 150
+		},
+		{
+			"id": "3",
+			"title": "Assinatura trimestral",
+			"image_url": "https://res.cloudinary.com/robertosousa1/image/upload/v1594492578/dio/quarterly_subscription_yjolpc.png",
+			"quantidade": 1,
+			"price": 150
 		}
 	]
 }
