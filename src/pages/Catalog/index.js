@@ -28,6 +28,7 @@ export default function Catalog() {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
+		console.log("iniciou");
 		async function loadProducts() {
 			const { data } = await api.get("/products");
 

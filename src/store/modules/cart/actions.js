@@ -28,3 +28,17 @@ export function updateAmountSuccess(id, amount) {
 		amount,
 	};
 }
+
+export function addCountRequest(val) {
+	return {
+		type: "@teste/ADD_REQUEST",
+		val,
+	};
+}
+
+export function addCountSuccess(val) {
+	return {
+		type: "@teste/ADD_SUCCESS",
+		val,
+	};
+}

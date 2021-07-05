@@ -5,6 +5,7 @@ import {
 	addToCartSuccess,
 	updateAmountRequest,
 	updateAmountSuccess,
+	addCountRequest,
 } from "./actions";
 
 function* addToCart({ id }) {
@@ -36,7 +37,12 @@ function* updateAmount({ id, amount }) {
 	}
 	yield put(updateAmountSuccess(id, amount));
 }
+
+function* addCount({ val }) {
+	yield put(addCountSuccess(val));
+}
 export default all([
 	takeLatest("@cart/ADD_REQUEST", addToCart),
 	takeLatest("@cart/UPDATE_AMOUNT_REQUEST", updateAmount),
+	takeLatest("@teste/ADD_REQUEST", addCount),
 ]);

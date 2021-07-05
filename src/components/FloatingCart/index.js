@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useNavigation, userNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import formatValue from "../../utils/formatValue";
 import {

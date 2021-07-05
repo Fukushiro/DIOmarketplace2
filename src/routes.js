@@ -1,14 +1,14 @@
 //react stuffs
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 //icones
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import FeatherIcon from "react-native-vector-icons/Feather";
 //components
-import Header from './components/Header';
+import Header from "./components/Header";
 // Paginas existentes no sistema
-import Catalog from './pages/Catalog';
-import Cart from './pages/Cart';
+import Catalog from "./pages/Catalog";
+import Cart from "./pages/Cart";
 // Sistema de geracao de rotas
 const Stack = createStackNavigator();
 export default function Routes() {
@@ -17,7 +17,7 @@ export default function Routes() {
 			<Stack.Navigator
 				screenOptions={{
 					headerShown: true,
-					cardStyle: { backgroundColor: '#313746' },
+					cardStyle: { backgroundColor: "#313746" },
 				}}
 				initialRouteName="Catalog"
 			>

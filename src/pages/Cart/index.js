@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, RefreshControl } from "react-native";
 import { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as CartActions from "../../store/modules/cart/actions";
@@ -7,7 +7,9 @@ import * as CartActions from "../../store/modules/cart/actions";
 import FeatherIcon from "react-native-vector-icons/Feather";
 //componentes
 import EmptyCart from "../../components/EmptyCart";
+import { useNavigation } from "@react-navigation/native";
 //style
+import Teste from "../teste";
 import {
 	Container,
 	ProductPrice,
@@ -31,9 +33,11 @@ import {
 //utils
 import formatValue from "../../utils/formatValue";
 export default function Cart() {
+	const matheus = useNavigation();
+	//const [state, setState] = useState(false);
 	const dispatch = useDispatch();
 	const products = useSelector(({ cart }) => cart);
-
+	const [refreshing, setRefreshing] = useState(false);
 	const cartSize = useMemo(() => {
 		return products.length || 0;
 	}, [products]);
@@ -46,17 +50,47 @@ export default function Cart() {
 	});
 	function increment(product) {
 		dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
+		//console.log(products);
 	}
 
 	function decrement(product) {
 		dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
 	}
+
+	// setTimeout(
+	// 	function () {
+	// 		setRefreshing(!refreshing);
+	// 		// console.log("refresh");
+	// 	}.bind(this),
+	// 	1000
+	// );
 	function removeFromCart(id) {
+		//setState(true);
+		// matheus.navigate("Catalog");
+		// matheus.navigate("Cart");
 		dispatch(CartActions.removeFromCart(id));
+
+		// console.log(products);
+
+		//setState(false);
 	}
+
+	const onRefresh = React.useCallback(async () => {
+		setRefreshing(!refreshing);
+	}, [refreshing]);
+
+	// function onRefresh() {
+	// 	products = useSelector(({ cart }) => cart);
+	// 	setState(false);
+	// 	console.log(state);
+	// }
 	return (
 		<Container>
+			{/* {products[0].amount > 2 && <Teste />} */}
 			<ProductContainer>
+				{console.log(products)}
+				{console.log("Cart")}
+
 				<ProductList
 					data={products}
 					keyExtractor={(item) => item.id}
