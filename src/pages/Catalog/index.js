@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Component } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, Component } from 'react';
+import { useDispatch } from 'react-redux';
 import {
 	StyleSheet,
 	Text,
@@ -7,20 +7,20 @@ import {
 	SafeAreaView,
 	Image,
 	TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 // import * as CartActions from "../../store/modules/cart/actions";
-import { Creators as CartActions } from "../../store/ducks/cart";
-import { bindActionCreators } from "redux";
+import { Creators as CartActions } from '../../store/ducks/cart/cart';
+import { bindActionCreators } from 'redux';
 //icones
-import FeatherIcon from "react-native-vector-icons/Feather";
+import FeatherIcon from 'react-native-vector-icons/Feather';
 //componentes
-import FloatingCart from "../../components/FloatingCart";
+import FloatingCart from '../../components/FloatingCart';
 //utils
-import formatValue from "../../utils/formatValue";
+import formatValue from '../../utils/formatValue';
 //services
-import api from "../../services/api";
-import { FlatList } from "react-native";
-import { connect } from "react-redux";
+import api from '../../services/api';
+import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
 //styles
 import {
 	Container,
@@ -33,59 +33,29 @@ import {
 	ProductPrice,
 	ProductButton,
 	ProductButtonText,
-} from "./styles";
+} from './styles';
 
-const Catalog = ({ addCart, addCartRequest }) => {
+const Catalog = ({ addCartRequest, cart }) => {
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
 		async function loadProducts() {
-			const { data } = await api.get("/products");
+			const { data } = await api.get('/products');
 
 			setProducts(data);
 		}
+
 		loadProducts();
 	}, []);
 
-	function handleAddToCart(e, id) {
-		e.preventDefault();
+	function handleAddToCart(id) {
 		addCartRequest(id);
 	}
 	return (
-		// <Container>
-		// 	<ProductContainer>
-		// 		<ProductList
-		// 			data={products}
-		// 			keyExtractor={(item) => item.id}
-		// 			ListFooterComponent={<View />}
-		// 			ListFooterComponentStyle={{
-		// 				height: 80,
-		// 			}}
-		// 			renderItem={({ item }) => (
-		// 				<Product>
-		// 					<ProductImage source={{ uri: item.image_url }} />
-		// 					<ProductTitle>{item.title}</ProductTitle>
-		// 					<PriceContainer>
-		// 						<ProductPrice>{formatValue(item.price)}</ProductPrice>
-		// 						<ProductButton
-		// 							onPress={() => {
-		// 								handleAddToCart(item.id);
-		// 							}}
-		// 						>
-		// 							<ProductButtonText>Adicionar</ProductButtonText>
-		// 							<FeatherIcon size={30} name="plus-circle" color="#d1d7e9" />
-		// 						</ProductButton>
-		// 					</PriceContainer>
-		// 				</Product>
-		// 			)}
-		// 		></ProductList>
-		// 	</ProductContainer>
-		// 	<FloatingCart />
-		// </Container>
-		<SafeAreaView>
-			<View style={a.Container}>
-				<FlatList
+		<Container>
+			<ProductContainer>
+				<ProductList
 					data={products}
 					keyExtractor={(item) => item.id}
 					ListFooterComponent={<View />}
@@ -93,26 +63,56 @@ const Catalog = ({ addCart, addCartRequest }) => {
 						height: 80,
 					}}
 					renderItem={({ item }) => (
-						<View>
-							<Image source={{ uri: item.image_url }} style={a.Imagem} />
-							<Text>{item.title}</Text>
-							<View>
-								<Text>{formatValue(item.price)}</Text>
-								<TouchableOpacity
-									onPress={(e) => {
-										handleAddToCart(e, item.id);
+						<Product>
+							<ProductImage source={{ uri: item.image_url }} />
+							<ProductTitle>{item.title}</ProductTitle>
+							<PriceContainer>
+								<ProductPrice>{formatValue(item.price)}</ProductPrice>
+								<ProductButton
+									onPress={() => {
+										handleAddToCart(item.id);
 									}}
 								>
-									<Text>Adicionar</Text>
+									<ProductButtonText>Adicionar</ProductButtonText>
 									<FeatherIcon size={30} name="plus-circle" color="#d1d7e9" />
-								</TouchableOpacity>
-							</View>
-						</View>
+								</ProductButton>
+							</PriceContainer>
+						</Product>
 					)}
-				></FlatList>
-				<FloatingCart />
-			</View>
-		</SafeAreaView>
+				></ProductList>
+			</ProductContainer>
+			<FloatingCart />
+		</Container>
+		// <SafeAreaView>
+		// 	<View style={a.Container}>
+		// 		<FlatList
+		// 			data={products}
+		// 			keyExtractor={(item) => item.id}
+		// 			ListFooterComponent={<View />}
+		// 			ListFooterComponentStyle={{
+		// 				height: 80,
+		// 			}}
+		// 			renderItem={({ item }) => (
+		// 				<View>
+		// 					<Image source={{ uri: item.image_url }} style={a.Imagem} />
+		// 					<Text>{item.title}</Text>
+		// 					<View>
+		// 						<Text>{formatValue(item.price)}</Text>
+		// 						<TouchableOpacity
+		// 							onPress={() => {
+		// 								handleAddToCart(item.id);
+		// 							}}
+		// 						>
+		// 							<Text>Adicionar</Text>
+		// 							<FeatherIcon size={30} name="plus-circle" color="#d1d7e9" />
+		// 						</TouchableOpacity>
+		// 					</View>
+		// 				</View>
+		// 			)}
+		// 		></FlatList>
+		// 		<FloatingCart />
+		// 	</View>
+		// </SafeAreaView>
 	);
 };
 
@@ -172,15 +172,15 @@ const Catalog = ({ addCart, addCartRequest }) => {
 const a = StyleSheet.create({
 	Container: {
 		flex: 1,
-		alignItems: "center",
+		alignItems: 'center',
 	},
 	Imagem: {
 		// 	width: 90%;
 		// height: 220px;
 		// align-self: center;
-		width: "90%",
+		width: '90%',
 		height: 220,
-		alignSelf: "center",
+		alignSelf: 'center',
 	},
 });
 const mapStateToProps = (state) => ({
@@ -189,4 +189,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) =>
 	bindActionCreators(CartActions, dispatch);
-export default connect(null, mapDispatchToProps)(Catalog);
+export default connect(mapStateToProps, mapDispatchToProps)(Catalog);

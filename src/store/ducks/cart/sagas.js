@@ -6,19 +6,21 @@ import {
 	updateAmountRequest,
 	updateAmountSuccess,
 	addCountRequest,
-} from "./actions";
+} from "../../modules/cart/actions";
+import { Types, Creators } from "./cart";
 
-import { addCart } from "../../ducks/cart";
+import { addCart } from "./cart";
 function* addToCart({ id }) {
 	const productExists = yield select((state) =>
-		state.cart.produtos.find((product) => product.id == id)
+		state.cart.find((product) => product.id == id)
 	);
 
 	const currentAmount = productExists ? productExists.amount : 0;
 	const amount = currentAmount + 1;
+
 	if (productExists) {
 		//atualiza carrinho
-		yield put(updateAmountSuccess(id, amount));
+		yield put(Creators.updateAmountCart(id, amount));
 	} else {
 		const response = yield call(api.get, `products/${id}`);
 
@@ -28,7 +30,7 @@ function* addToCart({ id }) {
 			priceFormatted: formatValue(response.data.price),
 		};
 
-		yield put(addCart(data));
+		yield put(Creators.addCart(data));
 	}
 }
 
@@ -36,14 +38,18 @@ function* updateAmount({ id, amount }) {
 	if (amount <= 0) {
 		return;
 	}
-	yield put(updateAmountSuccess(id, amount));
+	yield put(Creators.updateAmountCart(id, amount));
 }
 
 function* addCount({ val }) {
 	yield put(addCountSuccess(val));
 }
+
+function* remove({ id }) {
+	yield put(Creators.removeCart(id));
+}
 export default all([
-	takeLatest("@cart/ADD_REQUEST", addToCart),
-	takeLatest("@cart/UPDATE_AMOUNT_REQUEST", updateAmount),
-	takeLatest("@teste/ADD_REQUEST", addCount),
+	takeLatest(Types.ADD_CART_REQUEST, addToCart),
+	takeLatest(Types.UPDATE_AMOUNT_CART_REQUEST, updateAmount),
+	takeLatest(Types.REMOVE_CART_REQUEST, remove),
 ]);

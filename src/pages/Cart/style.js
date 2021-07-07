@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { FlatList } from "react-native";
+import styled from 'styled-components';
+import { FlatList, ScrollView } from 'react-native';
 export const Container = styled.SafeAreaView`
 	flex: 1;
 	align-items: center;
@@ -14,6 +14,10 @@ export const ProductContainer = styled.View`
 `;
 
 export const ProductList = styled(FlatList)`
+	flex: 1;
+	padding: 30px 10px;
+`;
+export const ProductListScrool = styled(ScrollView)`
 	flex: 1;
 	padding: 30px 10px;
 `;
